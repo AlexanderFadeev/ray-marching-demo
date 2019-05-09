@@ -1,9 +1,11 @@
 import Vector from "/common/Vector.mjs";
+import Mouse from "/common/Mouse.mjs";
 
 export default class AppView {
     constructor(canvas) {
         this.canvas = canvas;
         this.context = canvas.getContext("2d", {alpha: false});
+        this.mouse = new Mouse(this.canvas, new Vector(1, 1));
 
         window.addEventListener("resize", this.onResize.bind(this));
         this.onResize();
@@ -22,6 +24,10 @@ export default class AppView {
         this.canvas.width = d;
         this.canvas.height = d;
         this.size = d;
+    }
+
+    doOnMouseMove(cb) {
+        this.mouse.onMove(cb);
     }
 
     draw(lightSource, shapes, rays = 360) {

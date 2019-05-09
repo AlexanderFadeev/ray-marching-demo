@@ -7,20 +7,19 @@ export default class AppPresenter {
     }
 
     init() {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 10; i++) {
             this.model.addCircle();
         }
         this.model.addBoundaries();
         this.model.lightSource = new Vector(0, 0);
+        this.view.doOnMouseMove(this.onMouseMove.bind(this));
     }
 
     update() {
         this.view.draw(this.model.lightSource, this.model.shapes);
-        this.model.lightSource.add(new Vector(0.01, 0.01));
-        if (this.model.lightSource.x > 1) {
-            this.model.lightSource = new Vector(0, 0);
-        }
     }
 
-
+    onMouseMove(pos) {
+        this.model.lightSource = pos.clone;
+    }
 }
