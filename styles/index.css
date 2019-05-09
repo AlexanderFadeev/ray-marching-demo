@@ -1,0 +1,12 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+canvas {
+    background: rgba(0, 0, 0, 0.13);
+    width: 100%;
+    height: 100vh;
+    margin: 0 0 -4px;
+}
