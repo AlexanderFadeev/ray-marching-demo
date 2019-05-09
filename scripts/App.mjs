@@ -1,4 +1,4 @@
-import AppModel from "./app_model/AppModel.mjs";
+import AppModel from "./model/AppModel.mjs";
 import AppView from "./view/AppView.mjs";
 import AppPresenter from "./presenter/AppPresenter.mjs";
 
@@ -9,7 +9,13 @@ export default class App {
         this.presenter = new AppPresenter(this.model, this.view);
     }
 
+    tick() {
+        this.presenter.update();
+        window.requestAnimationFrame(this.tick.bind(this));
+    }
+
     start() {
-        console.log("App is starting")
+        this.presenter.init();
+        this.tick();
     }
 }
