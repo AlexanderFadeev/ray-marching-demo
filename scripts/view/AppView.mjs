@@ -16,11 +16,9 @@ export default class AppView {
         let d = this.canvas.clientWidth;
         if (d > window.innerHeight) {
             d = window.innerHeight;
-            this.canvas.style.height = `${d}px`;
-            this.canvas.style.width = `${d}px`;
-        } else {
-            this.canvas.style.height = `${d}px`;
         }
+        this.canvas.style.height = `${d}px`;
+        this.canvas.style.width = `${d}px`;
         this.canvas.width = d;
         this.canvas.height = d;
         this.size = d;
@@ -30,7 +28,7 @@ export default class AppView {
         this.mouse.onMove(cb);
     }
 
-    draw(lightSource, shapes, rays = 360) {
+    draw(lightSource, shapes, rays = 720) {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         let points = [];
         for (let i = 0; i < rays; i++) {
@@ -78,7 +76,7 @@ export default class AppView {
             if (iter > 20) {
                 return point;
             }
-            let dist = this.calcMinDistToShapes(point, shapes);
+            let dist = this.calcMinDist(point, shapes);
             const eps = 1e-6;
             if (dist < eps) {
                 return point;
@@ -86,6 +84,17 @@ export default class AppView {
             const delta = Vector.FromPolar(angle, dist);
             point = point.add(delta);
         }
+    }
+
+    calcMinDist(point, shapes) {
+        return Math.min(
+            this.calcMinDistToShapes(point, shapes),
+            this.calcMinDistToBoundaries(point)
+        )
+    }
+
+    calcMinDistToBoundaries(point) {
+        return Math.min(point.x, point.y, 1 - point.x, 1 - point.y) + 0.1;
     }
 
     calcMinDistToShapes(point, shapes) {

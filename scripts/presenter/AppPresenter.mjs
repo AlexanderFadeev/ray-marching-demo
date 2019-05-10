@@ -10,7 +10,6 @@ export default class AppPresenter {
         for (let i = 0; i < 10; i++) {
             this.model.addCircle();
         }
-        this.model.addBoundaries();
         this.model.lightSource = new Vector(0, 0);
         this.view.doOnMouseMove(this.onMouseMove.bind(this));
     }
