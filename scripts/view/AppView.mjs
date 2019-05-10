@@ -73,7 +73,7 @@ export default class AppView {
         let iter = 0;
         while (true) {
             iter++;
-            if (iter > 20) {
+            if (iter > 100) {
                 return point;
             }
             let dist = this.calcMinDist(point, shapes);
